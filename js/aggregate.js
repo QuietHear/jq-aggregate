@@ -1,6 +1,6 @@
 /*
  * @LastEditors: afei
- * @LastEditTime: 2021-10-25 15:13:30
+ * @LastEditTime: 2021-10-25 15:37:09
  */
 // 插件列表
 const list = [
@@ -39,8 +39,11 @@ const list = [
   {
     link: 'calculation-amount',
     name: '金额计算器'
+  },
+  {
+    link: 'temporary-project',
+    name: '临时项目（记录重点：老版本echarts离线地图）'
   }
-  
 ];
 let str = '';
 list.forEach(item => {

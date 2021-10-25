@@ -1,0 +1,282 @@
+<!--
+ * @LastEditors: afei
+ * @LastEditTime: 2021-10-25 15:28:06
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="../../static/favicon.jpg" type="image/x-icon">
+    <title>院校服务体系</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        html {
+            position: relative;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="home">
+        <div class="header">
+            西普教育院校服务体系
+        </div>
+        <div class="section">
+            <div class="left">
+                <div class="xpst">
+                    <img class="bg" src="img/home/xpst.png">
+                    <div class="tit">西普生态</div>
+                    <p class="school"><i class="icon icon-school"></i>服务院校&nbsp;<em></em>&nbsp;所</p>
+                    <p class="enterprise"><i class="icon icon-enterprise"></i>合作企业&nbsp;<em></em>&nbsp;家</p>
+                    <p class="student"><i class="icon icon-student"></i>培养学生&nbsp;<em></em>&nbsp;人</p>
+                </div>
+                <div class="yxgk">
+                    <img class="bg" src="img/home/yxgk.png">
+                    <div class="tit">院校概况</div>
+                    <div class="chart"></div>
+                </div>
+                <div class="cptx">
+                    <img class="bg" src="img/home/cptx.png">
+                    <div class="tit">产品体系</div>
+                    <img class="detail" src="img/home/cptx_detail.png">
+                    <p class="dsj"></p>
+                    <p class="wlaq"></p>
+                    <p class="rgzn"></p>
+                </div>
+            </div>
+            <div class="center">
+                <img class="bg" src="img/home/dt.png">
+                <div id="map"></div>
+            </div>
+            <div class="right">
+                <div class="kctx">
+                    <img class="bg" src="img/home/kctx.png">
+                    <div class="tit">课程体系</div>
+                    <div class="gear rgzn">
+                        <img class="bg" src="img/home/kctx_rgzn.png">
+                        <p>人工智能</p>
+                    </div>
+                    <div class="gear wlaq">
+                        <img class="bg" src="img/home/kctx_wlaq.png">
+                        <p>网络安全</p>
+                    </div>
+                    <div class="gear dsj">
+                        <img class="bg" src="img/home/kctx_dsj.png">
+                        <p>大数据</p>
+                    </div>
+                </div>
+                <div class="yxcg">
+                    <img class="bg" src="img/home/yxcg.png">
+                    <div class="tit">院校成功</div>
+                    <div class="content"></div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <ul>
+                <li><a href="">学生中心</a></li>
+                <li class="active"><a href="">院校服务体系</a></li>
+                <li><a href="">数据中心</a></li>
+            </ul>
+        </div>
+        <div class="top">
+            <img class="rgzn-img" src="img/home/rgzn_pop.png">
+            <img class="wlaq-img" src="img/home/wlaq_pop.png">
+            <img class="dsj-img" src="img/home/dsj_pop.png">
+            <img class="close-img" src="img/close_pop.png">
+        </div>
+    </section>
+    <script src="../../js/jquery1.9.min.js"></script>
+    <script src="js/echarts.min.js"></script>
+    <script src="js/china.js"></script>
+    <script>
+        $('.section .xpst').on('click', function () {
+            window.open('西普生态.html');
+        });
+        $('.section .yxcg').on('click', function () {
+            window.open('院校成功.html');
+        });
+        $('.section .kctx .gear').on('click', function () {
+            $('.top').addClass($(this).attr('class').replace('gear', '').trim());
+            $(this).addClass('active');
+        });
+        $('.top .close-img').on('click', function () {
+            $(this).closest('div').attr('class', 'top');
+            $('.section .kctx .gear.active').removeClass('active');
+        });
+
+        $(document).ready(function () {
+            $.ajax({
+                type: 'GET',
+                url: 'data/home.json',
+                dataType: 'json',
+                success: function (data) {
+                    $('.section .xpst .school em').text(data.xpst.school);
+                    $('.section .xpst .enterprise em').text(data.xpst.enterprise);
+                    $('.section .xpst .student em').text(data.xpst.student);
+                    let myChart = echarts.init($('.section .yxgk .chart')[0]);
+                    let option = {
+                        color: ['#1269c5', '#9091ff', '#c16bf1', '#5146b7', '#00adc3'],
+                        tooltip: {
+                            trigger: 'item',
+                            formatter: "{a} <br/>{b}: {c} ({d}%)"
+                        },
+                        textStyle: {
+                            fontSize: 15
+                        },
+                        series: [
+                            {
+                                name: data.yxgk.inData.name,
+                                type: 'pie',
+                                selectedMode: 'single',
+                                radius: [0, '30%'],
+                                label: {
+                                    normal: {
+                                        position: 'inner'
+                                    }
+                                },
+                                labelLine: {
+                                    normal: {
+                                        show: false
+                                    }
+                                },
+                                data: data.yxgk.inData.data
+                            },
+                            {
+                                name: data.yxgk.outData.name,
+                                type: 'pie',
+                                radius: ['48%', '58%'],
+                                data: data.yxgk.outData.data
+                            }
+                        ]
+                    };
+                    myChart.setOption(option);
+                    data.cptx.dsj.forEach(function (item) {
+                        $('.section .cptx .dsj').append(`<span>${item}</span>`);
+                    });
+                    data.cptx.rgzn.forEach(function (item) {
+                        $('.section .cptx .rgzn').append(`<span>${item}</span>`);
+                    });
+                    data.cptx.wlaq.forEach(function (item) {
+                        $('.section .cptx .wlaq').append(`<span>${item}</span>`);
+                    });
+                    let mapChart = echarts.init($('#map')[0]);
+                    let mapOption = {
+                        backgroundColor: 'transparent',
+                        tooltip: {
+                            trigger: 'item',
+                            enterable: true,
+                            backgroundColor: 'transparent',
+                            position: function (arr) {
+                                if (event.pageX + 346 > $(window).width()) {
+                                    arr[0] = event.offsetX - 346;
+                                }
+                                if (event.pageY + 271 > $(window).height()) {
+                                    arr[1] = event.offsetY - 271;
+                                }
+                                return arr;
+                            },
+                            formatter: function (params, ticket, callback) {
+                                let listStr = '';
+                                if (params.data !== undefined && params.data.logo !== undefined) {
+                                    params.data.logo.forEach(function (item) {
+                                        listStr += `<img src="img/college-logo/${item}">`;
+                                    });
+                                }
+                                let str = `
+                <div class="mapTip">
+                    <p>${params.name}服务院校--${params.value}</p>
+                    <div class="list">${listStr}</div>
+                </div>`;
+                                return params.name !== '' ? str : '';
+                            }
+                        },
+                        visualMap: {
+                            show: false,
+                            x: 'left',
+                            y: 'bottom',
+                            splitList: [
+                                { start: 40, end: 600 }, { start: 25, end: 40 },
+                                { start: 15, end: 25 }, { start: 5, end: 15 },
+                                { start: 0, end: 5 }, { start: 0, end: 0 },
+                            ],
+                            color: ['#215096', '#3598c1', '#40a9ed', '#b7d6f3', '#edfbfb']
+                        },
+                        series: [{
+                            name: '全国数据',
+                            type: 'map',
+                            mapType: 'china',
+                            roam: true,
+                            itemStyle: {
+                                normal: {
+                                    borderColor: '#25a2d3'
+                                }
+                            },
+                            label: {
+                                normal: {
+                                    show: true
+                                },
+                                emphasis: {
+                                    show: true
+                                }
+                            },
+                            data: data.map
+                        }]
+                    };
+                    mapChart.setOption(mapOption);
+                    $('.section .yxcg .content').append('<div class="group"></div>');
+                    let num = Math.ceil(data.yxcg.length / 3);
+                    for (let i = 0; i < num; i++) {
+                        let str = '';
+                        for (let x = 0; x < 3; x++) {
+                            str += data.yxcg[3 * i + x] === undefined ? '' : `<div class="item">
+                            <div class="logo">
+                            <img src="img/college-logo/${data.yxcg[3 * i + x].logo}">
+                            </div>
+                            <p>${data.yxcg[3 * i + x].name}</p>
+                           </div>`;
+                        }
+                        $('.section .yxcg .group').append(`<div class="row">${str}</div>`);
+                    }
+                    if (data.yxcg.length > 3) {
+                        let $parent = $('.section .yxcg .content');
+                        let str = $parent.html();
+                        $parent.html(str + str);
+                        let height = $parent.children('.group:first-child').css('top', 0).height();
+                        let vy = 50;
+                        $parent.children('.group:last-child').css('top', height + 12);
+                        let count = 0;
+                        let scroll = function () {
+                            if (count % 2 === 0) {
+                                $parent.children('.group:first-child').animate({
+                                    top: -height - 12
+                                }, height / vy * 1000, function () {
+                                    $(this).css('top', height + 12);
+                                });
+                                $parent.children('.group:last-child').animate({
+                                    top: 0
+                                }, height / vy * 1000);
+                            }
+                            else {
+                                $parent.children('.group:last-child').animate({
+                                    top: -height - 12
+                                }, height / vy * 1000, function () {
+                                    $(this).css('top', height + 12);
+                                });
+                                $parent.children('.group:first-child').animate({
+                                    top: 0
+                                }, height / vy * 1000);
+                            }
+                            count = (count + 1) > 1 ? 0 : (count + 1);
+                        };
+                        setInterval(scroll, height / vy * 1000);
+                        scroll();
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

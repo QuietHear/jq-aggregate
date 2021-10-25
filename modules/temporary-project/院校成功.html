@@ -1,0 +1,101 @@
+<!--
+ * @LastEditors: afei
+ * @LastEditTime: 2021-10-25 15:28:55
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="../../static/favicon.jpg" type="image/x-icon">
+    <title>院校成功</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/3dCarousel.css" />
+</head>
+
+<body>
+    <section class="yuanxiaochenggong">
+        <button class="back">返回</button>
+        <div class="header">
+            院校成功
+        </div>
+        <div class="section">
+            <div class="bigCarousel">
+                <div class="controls prv-btn">
+                    <img class="normal" src="img/yuanxiaochenggong/btn_l.png">
+                    <img class="active" src="img/yuanxiaochenggong/btn_l_hover.png">
+                </div>
+                <ul class="list"></ul>
+                <div class="controls next-btn">
+                    <img class="normal" src="img/yuanxiaochenggong/btn_r.png">
+                    <img class="active" src="img/yuanxiaochenggong/btn_r_hover.png">
+                </div>
+                <ul class="indicator"></ul>
+            </div>
+        </div>
+        <div class="footer">
+            <button data-name="dsj">大数据</button>
+            <button data-name="rgzn">人工智能</button>
+            <button data-name="wlaq">网络安全</button>
+            <button data-name="yxfu">院校服务</button>
+        </div>
+    </section>
+    <script src="../../js/jquery1.9.min.js"></script>
+    <script type="text/javascript" src="js/3dCarousel.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        var allData;
+
+        function changeData(name) {
+            if (allData[name].length < 5) {
+                allData[name] = [...allData[name], ...allData[name]];
+            }
+            $('.footer button').each(function () {
+                $(this).removeClass('active');
+            });
+            $('.footer button[data-name=' + name + ']').addClass('active');
+            $('.bigCarousel .list').html('');
+            $('.bigCarousel .indicator').html('');
+            $('.bigCarousel').unbind();
+            $('.bigCarousel .prv-btn').unbind();
+            $('.bigCarousel .next-btn').unbind();
+            $('.bigCarousel .indicator').unbind();
+            clearInterval(bigCarousel.INIT);
+            bigCarousel.beforePlace = null;
+            bigCarousel.nowPlace = null;
+            bigCarousel.INIT = null;
+            allData[name].forEach(function (item) {
+                $('.bigCarousel .list').append(`<li class="item">
+             <a>
+               <div class="content">
+                <img class="logo" src="img/yuanxiaochenggong/${name}/${item.logo}">
+                <p class="title">${item.title}</p>
+                <div class="msg">
+                  <div class="left">${item.content}</div>
+                  ${item.img === undefined || item.img === '' ? '' : `<img src="img/yuanxiaochenggong/${name}/${item.img}">`}
+                </div>
+               </div>
+             </a>
+           </li>`);
+            });
+            bigCarousel.start();
+        }
+
+        $(document).ready(function () {
+            $.ajax({
+                type: 'GET',
+                url: 'data/yuanxiaochenggong.json',
+                dataType: 'json',
+                success: function (data) {
+                    allData = { ...data };
+                    changeData('dsj');
+                }
+            });
+            $('.footer button').on('click', function () {
+                changeData($(this).attr('data-name'));
+            });
+        });
+    </script>
+</body>
+
+</html>
