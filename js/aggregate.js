@@ -1,6 +1,6 @@
 /*
  * @LastEditors: afei
- * @LastEditTime: 2021-10-25 14:50:19
+ * @LastEditTime: 2021-10-25 14:54:54
  */
 // 插件列表
 const list = [
@@ -15,6 +15,10 @@ const list = [
   {
     link: 'indicator-floor',
     name: '电商网站楼层指示器'
+  },
+  {
+    link: 'drag-menu',
+    name: '可拖拽的菜单'
   }
 ];
 let str = '';
