@@ -1,6 +1,6 @@
 /*
  * @LastEditors: afei
- * @LastEditTime: 2021-10-25 12:30:24
+ * @LastEditTime: 2021-10-25 14:50:19
  */
 // 插件列表
 const list = [
@@ -11,6 +11,10 @@ const list = [
   {
     link: 'interface-show',
     name: '接口展示示例页面'
+  },
+  {
+    link: 'indicator-floor',
+    name: '电商网站楼层指示器'
   }
 ];
 let str = '';
