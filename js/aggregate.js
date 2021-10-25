@@ -1,6 +1,6 @@
 /*
  * @LastEditors: afei
- * @LastEditTime: 2021-10-25 14:54:54
+ * @LastEditTime: 2021-10-25 15:06:53
  */
 // 插件列表
 const list = [
@@ -19,6 +19,22 @@ const list = [
   {
     link: 'drag-menu',
     name: '可拖拽的菜单'
+  },
+  {
+    link: 'carousel-3d',
+    name: '3d轮播'
+  },
+  {
+    link: 'carousel-replace',
+    name: '替换轮播'
+  },
+  {
+    link: 'carousel-seamless',
+    name: '无缝轮播'
+  },
+  {
+    link: 'carousel-slides',
+    name: '幻灯片轮播'
   }
 ];
 let str = '';
