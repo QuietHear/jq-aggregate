@@ -1,6 +1,6 @@
 /*
  * @LastEditors: afei
- * @LastEditTime: 2021-10-25 15:06:53
+ * @LastEditTime: 2021-10-25 15:13:30
  */
 // 插件列表
 const list = [
@@ -35,7 +35,12 @@ const list = [
   {
     link: 'carousel-slides',
     name: '幻灯片轮播'
+  },
+  {
+    link: 'calculation-amount',
+    name: '金额计算器'
   }
+  
 ];
 let str = '';
 list.forEach(item => {
