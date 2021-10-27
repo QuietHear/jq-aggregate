@@ -1,5 +1,7 @@
-@charset "utf-8";
-
+/*
+ * @LastEditors: afei
+ * @LastEditTime: 2021-10-27 10:20:18
+ */
 //日历插件
 //触发容器
 .content {
@@ -12,10 +14,10 @@
   }
 }
 
-$normal_color : #000;
-$active_color : #409eff;
-$disable_color: rgba(0, 0, 0, 0.2);
-$between_color: #f2f6fc;
+@normal_color : #000;
+@active_color : #409eff;
+@disable_color: rgba(0, 0, 0, 0.2);
+@between_color: #f2f6fc;
 
 //日历样式
 .date_selector {
@@ -32,12 +34,12 @@ $between_color: #f2f6fc;
     background: none;
     outline   : none;
     cursor    : pointer;
-    color     : $normal_color;
+    color     : @normal_color;
   }
 
   a {
     text-decoration: none;
-    color          : $normal_color;
+    color          : @normal_color;
   }
 
   h1,
@@ -64,9 +66,9 @@ $between_color: #f2f6fc;
   }
 
   //具体样式
-  border       : 1px solid $active_color;
+  border       : 1px solid @active_color;
   background   : white;
-  color        : $normal_color;
+  color        : @normal_color;
   width        : 210px;
   border-radius: 3px;
   padding      : 2px;
@@ -148,12 +150,12 @@ $between_color: #f2f6fc;
     .row {
       .item {
         &.today {
-          color: $active_color;
+          color: @active_color;
         }
 
         &.select {
           .inner {
-            background: $active_color;
+            background: @active_color;
           }
 
           color: #fff !important;
@@ -165,7 +167,7 @@ $between_color: #f2f6fc;
             display   : block;
             width     : 100%;
             height    : 100%;
-            background: $between_color;
+            background: @between_color;
             position  : absolute;
             left      : 0;
             top       : 0;
@@ -176,10 +178,10 @@ $between_color: #f2f6fc;
         }
 
         &.cantUse {
-          color: $disable_color;
+          color: @disable_color;
 
           &:hover {
-            color: $disable_color;
+            color: @disable_color;
           }
         }
       }
@@ -191,7 +193,7 @@ $between_color: #f2f6fc;
           cursor: pointer;
 
           &:hover {
-            color: $active_color;
+            color: @active_color;
           }
 
           &.select {
@@ -200,12 +202,12 @@ $between_color: #f2f6fc;
 
           &.cantUse {
             cursor: default;
-            color : $disable_color;
+            color : @disable_color;
           }
 
           &.noHover {
             cursor: default;
-            color : $normal_color;
+            color : @normal_color;
           }
         }
       }
@@ -214,7 +216,7 @@ $between_color: #f2f6fc;
     &.week {
       .row {
         &:hover {
-          background   : $between_color;
+          background   : @between_color;
           border-radius: 30px;
         }
 
@@ -230,17 +232,17 @@ $between_color: #f2f6fc;
           cursor: pointer;
 
           &:hover {
-            color: $active_color;
+            color: @active_color;
           }
 
           &.cantUse {
             cursor: default;
-            color : $disable_color;
+            color : @disable_color;
           }
 
           &.noHover {
             cursor: default;
-            color : $normal_color;
+            color : @normal_color;
           }
         }
       }
